@@ -3,20 +3,27 @@ info:
   # Do not change the title, if the title changes, the import paths will be broken
   title: Api
   version: 0.1.0
-  description: API specification
+  description: API for Ain Farba cultural heritage website
 servers:
   - url: /api
     description: Base API path
 tags:
   - name: health
     description: Health operations
+  - name: articles
+    description: Cultural articles
+  - name: events
+    description: Cultural events
+  - name: notables
+    description: Notable figures of the region
+  - name: stats
+    description: Site-wide stats and summaries
 paths:
   /healthz:
     get:
       operationId: healthCheck
       tags: [health]
       summary: Health check
-      description: Returns server health status
       responses:
         "200":
           description: Healthy
@@ -24,6 +31,351 @@ paths:
             application/json:
               schema:
                 $ref: "#/components/schemas/HealthStatus"
+
+  /articles:
+    get:
+      operationId: listArticles
+      tags: [articles]
+      summary: List all articles
+      parameters:
+        - name: category
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [heritage, history, literature, thought, identity]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of articles
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Article"
+    post:
+      operationId: createArticle
+      tags: [articles]
+      summary: Create a new article
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateArticleBody"
+      responses:
+        "201":
+          description: Article created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+
+  /articles/{id}:
+    get:
+      operationId: getArticle
+      tags: [articles]
+      summary: Get article by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+        "404":
+          description: Not found
+    put:
+      operationId: updateArticle
+      tags: [articles]
+      summary: Update an article
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateArticleBody"
+      responses:
+        "200":
+          description: Updated article
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Article"
+    delete:
+      operationId: deleteArticle
+      tags: [articles]
+      summary: Delete an article
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /events:
+    get:
+      operationId: listEvents
+      tags: [events]
+      summary: List all events
+      parameters:
+        - name: status
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [upcoming, past]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of events
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Event"
+    post:
+      operationId: createEvent
+      tags: [events]
+      summary: Create a new event
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventBody"
+      responses:
+        "201":
+          description: Event created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+
+  /events/{id}:
+    get:
+      operationId: getEvent
+      tags: [events]
+      summary: Get event by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+        "404":
+          description: Not found
+    put:
+      operationId: updateEvent
+      tags: [events]
+      summary: Update an event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateEventBody"
+      responses:
+        "200":
+          description: Updated event
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Event"
+    delete:
+      operationId: deleteEvent
+      tags: [events]
+      summary: Delete an event
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /notables:
+    get:
+      operationId: listNotables
+      tags: [notables]
+      summary: List all notable figures
+      parameters:
+        - name: specialty
+          in: query
+          required: false
+          schema:
+            type: string
+            enum: [scholar, jurist, poet, writer, thinker]
+        - name: limit
+          in: query
+          required: false
+          schema:
+            type: integer
+        - name: offset
+          in: query
+          required: false
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: List of notable figures
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: "#/components/schemas/Notable"
+    post:
+      operationId: createNotable
+      tags: [notables]
+      summary: Add a notable figure
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNotableBody"
+      responses:
+        "201":
+          description: Notable created
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notable"
+
+  /notables/{id}:
+    get:
+      operationId: getNotable
+      tags: [notables]
+      summary: Get notable figure by ID
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "200":
+          description: Notable figure
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notable"
+        "404":
+          description: Not found
+    put:
+      operationId: updateNotable
+      tags: [notables]
+      summary: Update a notable figure
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: "#/components/schemas/CreateNotableBody"
+      responses:
+        "200":
+          description: Updated notable
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/Notable"
+    delete:
+      operationId: deleteNotable
+      tags: [notables]
+      summary: Delete a notable figure
+      parameters:
+        - name: id
+          in: path
+          required: true
+          schema:
+            type: integer
+      responses:
+        "204":
+          description: Deleted
+
+  /stats/summary:
+    get:
+      operationId: getSummaryStats
+      tags: [stats]
+      summary: Get site-wide summary stats
+      responses:
+        "200":
+          description: Summary statistics
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/SummaryStats"
+
+  /stats/recent:
+    get:
+      operationId: getRecentActivity
+      tags: [stats]
+      summary: Get recent content across all sections
+      responses:
+        "200":
+          description: Recent activity
+          content:
+            application/json:
+              schema:
+                $ref: "#/components/schemas/RecentActivity"
+
 components:
   schemas:
     HealthStatus:
@@ -34,3 +386,240 @@ components:
       required:
         - status
 
+    Article:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        summary:
+          type: string
+        content:
+          type: string
+        author:
+          type: string
+        category:
+          type: string
+          enum: [heritage, history, literature, thought, identity]
+        imageUrl:
+          type: string
+          nullable: true
+        publishedAt:
+          type: string
+          format: date-time
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - summary
+        - content
+        - author
+        - category
+        - publishedAt
+        - createdAt
+
+    CreateArticleBody:
+      type: object
+      properties:
+        title:
+          type: string
+        summary:
+          type: string
+        content:
+          type: string
+        author:
+          type: string
+        category:
+          type: string
+          enum: [heritage, history, literature, thought, identity]
+        imageUrl:
+          type: string
+          nullable: true
+        publishedAt:
+          type: string
+          format: date-time
+      required:
+        - title
+        - summary
+        - content
+        - author
+        - category
+        - publishedAt
+
+    Event:
+      type: object
+      properties:
+        id:
+          type: integer
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [upcoming, past]
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - title
+        - description
+        - date
+        - location
+        - status
+        - createdAt
+
+    CreateEventBody:
+      type: object
+      properties:
+        title:
+          type: string
+        description:
+          type: string
+        date:
+          type: string
+          format: date-time
+        location:
+          type: string
+        imageUrl:
+          type: string
+          nullable: true
+        status:
+          type: string
+          enum: [upcoming, past]
+      required:
+        - title
+        - description
+        - date
+        - location
+        - status
+
+    Notable:
+      type: object
+      properties:
+        id:
+          type: integer
+        name:
+          type: string
+        role:
+          type: string
+        bio:
+          type: string
+        specialty:
+          type: string
+          enum: [scholar, jurist, poet, writer, thinker]
+        era:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+        createdAt:
+          type: string
+          format: date-time
+      required:
+        - id
+        - name
+        - role
+        - bio
+        - specialty
+        - createdAt
+
+    CreateNotableBody:
+      type: object
+      properties:
+        name:
+          type: string
+        role:
+          type: string
+        bio:
+          type: string
+        specialty:
+          type: string
+          enum: [scholar, jurist, poet, writer, thinker]
+        era:
+          type: string
+          nullable: true
+        imageUrl:
+          type: string
+          nullable: true
+      required:
+        - name
+        - role
+        - bio
+        - specialty
+
+    SummaryStats:
+      type: object
+      properties:
+        totalArticles:
+          type: integer
+        totalEvents:
+          type: integer
+        totalNotables:
+          type: integer
+        upcomingEvents:
+          type: integer
+        articlesByCategory:
+          type: array
+          items:
+            type: object
+            properties:
+              category:
+                type: string
+              count:
+                type: integer
+            required:
+              - category
+              - count
+        notablesBySpecialty:
+          type: array
+          items:
+            type: object
+            properties:
+              specialty:
+                type: string
+              count:
+                type: integer
+            required:
+              - specialty
+              - count
+      required:
+        - totalArticles
+        - totalEvents
+        - totalNotables
+        - upcomingEvents
+        - articlesByCategory
+        - notablesBySpecialty
+
+    RecentActivity:
+      type: object
+      properties:
+        recentArticles:
+          type: array
+          items:
+            $ref: "#/components/schemas/Article"
+        recentEvents:
+          type: array
+          items:
+            $ref: "#/components/schemas/Event"
+        recentNotables:
+          type: array
+          items:
+            $ref: "#/components/schemas/Notable"
+      required:
+        - recentArticles
+        - recentEvents
+        - recentNotables
