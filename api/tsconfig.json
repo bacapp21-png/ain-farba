@@ -1,0 +1,16 @@
+{
+  "extends": "../tsconfig.base.json",
+  "compilerOptions": {
+    "module": "commonjs",
+    "moduleResolution": "node",
+    "noEmit": true,
+    "lib": ["esnext"],
+    "types": ["node"],
+    "paths": {
+      "@workspace/db": ["../lib/db/src/index.ts"],
+      "@workspace/api-zod": ["../lib/api-zod/src/index.ts"]
+    }
+  },
+  "include": ["./**/*.ts"],
+  "exclude": ["node_modules"]
+}
