@@ -1,22 +1,25 @@
+import { useState } from "react";
 import { Link, useLocation } from "wouter";
 import logoUrl from "@assets/739de7c1-721e-4183-b50a-44381f45706f_1777679936172.jpeg";
+import { Menu, X } from "lucide-react";
+
+const navLinks = [
+  { href: "/", label: "الرئيسية" },
+  { href: "/articles", label: "المقالات" },
+  { href: "/events", label: "الفعاليات" },
+  { href: "/notables", label: "أعلام المنطقة" },
+  { href: "/about", label: "عن التجمع" },
+];
 
 export default function Layout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
-
-  const navLinks = [
-    { href: "/", label: "الرئيسية" },
-    { href: "/articles", label: "المقالات" },
-    { href: "/events", label: "الفعاليات" },
-    { href: "/notables", label: "أعلام المنطقة" },
-    { href: "/about", label: "عن التجمع" },
-  ];
+  const [menuOpen, setMenuOpen] = useState(false);
 
   return (
     <div className="min-h-[100dvh] flex flex-col font-sans">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-4 group">
+          <Link href="/" className="flex items-center gap-3 group" onClick={() => setMenuOpen(false)}>
             <div className="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary/20 group-hover:border-primary transition-colors">
               <img src={logoUrl} alt="شعار التجمع المحلي لشباب عين فربة" className="object-cover w-full h-full" />
             </div>
@@ -26,6 +29,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
           </Link>
 
+          {/* Desktop nav */}
           <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
@@ -39,7 +43,39 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </Link>
             ))}
           </nav>
+
+          {/* Mobile hamburger button */}
+          <button
+            className="md:hidden flex items-center justify-center h-10 w-10 rounded-md text-primary hover:bg-primary/10 transition-colors"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="فتح القائمة"
+          >
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
+
+        {/* Mobile dropdown menu */}
+        {menuOpen && (
+          <div className="md:hidden border-t bg-background/98 shadow-lg">
+            <nav className="container mx-auto px-4 py-3 flex flex-col">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  onClick={() => setMenuOpen(false)}
+                  className={`py-4 text-lg font-semibold border-b border-border/40 last:border-0 transition-colors ${
+                    location === link.href ? "text-primary" : "text-foreground"
+                  }`}
+                >
+                  {location === link.href && (
+                    <span className="inline-block w-1.5 h-1.5 rounded-full bg-primary ml-2 mb-0.5" />
+                  )}
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
+        )}
       </header>
 
       <main className="flex-1 flex flex-col">
