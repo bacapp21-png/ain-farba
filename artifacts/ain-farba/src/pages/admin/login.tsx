@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import { useLocation } from "wouter";
 import { useAdminAuth } from "@/lib/admin-auth";
 import { Button } from "@/components/ui/button";
@@ -15,10 +15,13 @@ export default function AdminLogin() {
   const { login, isAuthenticated } = useAdminAuth();
   const [, setLocation] = useLocation();
 
-  if (isAuthenticated) {
-    setLocation("/admin");
-    return null;
-  }
+  useEffect(() => {
+    if (isAuthenticated) {
+      setLocation("/admin");
+    }
+  }, [isAuthenticated, setLocation]);
+
+  if (isAuthenticated) return null;
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();

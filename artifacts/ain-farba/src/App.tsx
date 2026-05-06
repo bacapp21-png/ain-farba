@@ -29,77 +29,9 @@ const queryClient = new QueryClient({
     queries: {
       retry: false,
       refetchOnWindowFocus: false,
-    }
-  }
+    },
+  },
 });
-
-function AdminRoutes() {
-  return (
-    <Switch>
-      <Route path="/admin/login" component={AdminLogin} />
-      <Route path="/admin/articles">
-        <RequireAdmin>
-          <AdminLayout>
-            <AdminArticles />
-          </AdminLayout>
-        </RequireAdmin>
-      </Route>
-      <Route path="/admin/events">
-        <RequireAdmin>
-          <AdminLayout>
-            <AdminEvents />
-          </AdminLayout>
-        </RequireAdmin>
-      </Route>
-      <Route path="/admin/notables">
-        <RequireAdmin>
-          <AdminLayout>
-            <AdminNotables />
-          </AdminLayout>
-        </RequireAdmin>
-      </Route>
-      <Route path="/admin">
-        <RequireAdmin>
-          <AdminLayout>
-            <AdminDashboard />
-          </AdminLayout>
-        </RequireAdmin>
-      </Route>
-    </Switch>
-  );
-}
-
-function PublicRoutes() {
-  return (
-    <Layout>
-      <Switch>
-        <Route path="/" component={Home} />
-        <Route path="/articles" component={Articles} />
-        <Route path="/articles/:id" component={ArticleDetail} />
-        <Route path="/events" component={Events} />
-        <Route path="/events/:id" component={EventDetail} />
-        <Route path="/notables" component={Notables} />
-        <Route path="/notables/:id" component={NotableDetail} />
-        <Route path="/about" component={About} />
-        <Route component={NotFound} />
-      </Switch>
-    </Layout>
-  );
-}
-
-function Router() {
-  return (
-    <Switch>
-      <Route path="/admin/login" component={AdminLogin} />
-      <Route path="/admin/:rest*">
-        {() => <AdminRoutes />}
-      </Route>
-      <Route>
-        {() => <PublicRoutes />}
-      </Route>
-    </Switch>
-  );
-}
 
 function App() {
   return (
@@ -107,7 +39,61 @@ function App() {
       <TooltipProvider>
         <AdminAuthProvider>
           <WouterRouter base={import.meta.env.BASE_URL.replace(/\/$/, "")}>
-            <Router />
+            <Switch>
+              {/* Admin login — no auth required */}
+              <Route path="/admin/login" component={AdminLogin} />
+
+              {/* Admin protected pages */}
+              <Route path="/admin/articles">
+                <RequireAdmin>
+                  <AdminLayout><AdminArticles /></AdminLayout>
+                </RequireAdmin>
+              </Route>
+              <Route path="/admin/events">
+                <RequireAdmin>
+                  <AdminLayout><AdminEvents /></AdminLayout>
+                </RequireAdmin>
+              </Route>
+              <Route path="/admin/notables">
+                <RequireAdmin>
+                  <AdminLayout><AdminNotables /></AdminLayout>
+                </RequireAdmin>
+              </Route>
+              <Route path="/admin">
+                <RequireAdmin>
+                  <AdminLayout><AdminDashboard /></AdminLayout>
+                </RequireAdmin>
+              </Route>
+
+              {/* Public pages */}
+              <Route path="/">
+                <Layout><Home /></Layout>
+              </Route>
+              <Route path="/articles">
+                <Layout><Articles /></Layout>
+              </Route>
+              <Route path="/articles/:id">
+                <Layout><ArticleDetail /></Layout>
+              </Route>
+              <Route path="/events">
+                <Layout><Events /></Layout>
+              </Route>
+              <Route path="/events/:id">
+                <Layout><EventDetail /></Layout>
+              </Route>
+              <Route path="/notables">
+                <Layout><Notables /></Layout>
+              </Route>
+              <Route path="/notables/:id">
+                <Layout><NotableDetail /></Layout>
+              </Route>
+              <Route path="/about">
+                <Layout><About /></Layout>
+              </Route>
+              <Route>
+                <Layout><NotFound /></Layout>
+              </Route>
+            </Switch>
           </WouterRouter>
           <Toaster />
         </AdminAuthProvider>
