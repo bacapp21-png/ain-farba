@@ -100,6 +100,9 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex flex-col items-center text-center gap-2">
             <p className="opacity-90">حفظ الذاكرة الثقافية لمنطقة عين فربة، موريتانيا</p>
             <p className="text-sm opacity-70">جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
+            <Link href="/admin/login" className="text-xs opacity-30 hover:opacity-60 transition-opacity mt-1">
+              لوحة الإدارة
+            </Link>
           </div>
         </div>
       </footer>
