@@ -20,16 +20,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
 
-          {/* Mobile hamburger button — يسار الشاشة */}
-          <button
-            className="md:hidden flex items-center justify-center h-10 w-10 rounded-md text-primary hover:bg-primary/10 transition-colors"
-            onClick={() => setMenuOpen((o) => !o)}
-            aria-label="فتح القائمة"
-          >
-            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
-          </button>
-
-          {/* الشعار + الروابط مجمّعان على اليمين */}
+          {/* الشعار + الروابط مجمّعان على اليمين (أول عنصر → يمين في RTL) */}
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-3 group" onClick={() => setMenuOpen(false)}>
               <div className="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary/20 group-hover:border-primary transition-colors">
@@ -56,6 +47,15 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               ))}
             </nav>
           </div>
+
+          {/* زر القائمة — يسار الشاشة على الهاتف (ثاني عنصر → يسار في RTL) */}
+          <button
+            className="md:hidden flex items-center justify-center h-10 w-10 rounded-md text-primary hover:bg-primary/10 transition-colors"
+            onClick={() => setMenuOpen((o) => !o)}
+            aria-label="فتح القائمة"
+          >
+            {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
+          </button>
         </div>
 
         {/* Mobile dropdown menu */}
