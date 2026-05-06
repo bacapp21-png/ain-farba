@@ -15,7 +15,7 @@ export default function Home() {
   return (
     <div className="flex flex-col min-h-screen">
       {/* Hero */}
-      <section className="relative py-24 md:py-36 bg-primary text-primary-foreground overflow-hidden">
+      <section className="relative py-10 md:py-14 bg-primary text-primary-foreground overflow-hidden">
         <div
           className="absolute inset-0"
           style={{
