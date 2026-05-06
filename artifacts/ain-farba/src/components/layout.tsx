@@ -19,32 +19,8 @@ export default function Layout({ children }: { children: React.ReactNode }) {
     <div className="min-h-[100dvh] flex flex-col font-sans">
       <header className="sticky top-0 z-50 w-full border-b bg-background/95 backdrop-blur supports-[backdrop-filter]:bg-background/60">
         <div className="container mx-auto px-4 h-20 flex items-center justify-between">
-          <Link href="/" className="flex items-center gap-3 group" onClick={() => setMenuOpen(false)}>
-            <div className="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary/20 group-hover:border-primary transition-colors">
-              <img src={logoUrl} alt="شعار التجمع المحلي لشباب عين فربة" className="object-cover w-full h-full" />
-            </div>
-            <div className="flex flex-col">
-              <span className="font-serif font-bold text-xl text-primary leading-tight">التجمع المحلي</span>
-              <span className="text-sm text-muted-foreground font-medium">لشباب عين فربة</span>
-            </div>
-          </Link>
 
-          {/* Desktop nav */}
-          <nav className="hidden md:flex items-center gap-8">
-            {navLinks.map((link) => (
-              <Link
-                key={link.href}
-                href={link.href}
-                className={`text-base font-semibold transition-colors hover:text-primary ${
-                  location === link.href ? "text-primary border-b-2 border-primary pb-1" : "text-muted-foreground"
-                }`}
-              >
-                {link.label}
-              </Link>
-            ))}
-          </nav>
-
-          {/* Mobile hamburger button */}
+          {/* Mobile hamburger button — يسار الشاشة */}
           <button
             className="md:hidden flex items-center justify-center h-10 w-10 rounded-md text-primary hover:bg-primary/10 transition-colors"
             onClick={() => setMenuOpen((o) => !o)}
@@ -52,6 +28,34 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           >
             {menuOpen ? <X className="h-6 w-6" /> : <Menu className="h-6 w-6" />}
           </button>
+
+          {/* الشعار + الروابط مجمّعان على اليمين */}
+          <div className="flex items-center gap-8">
+            <Link href="/" className="flex items-center gap-3 group" onClick={() => setMenuOpen(false)}>
+              <div className="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary/20 group-hover:border-primary transition-colors">
+                <img src={logoUrl} alt="شعار التجمع المحلي لشباب عين فربة" className="object-cover w-full h-full" />
+              </div>
+              <div className="flex flex-col">
+                <span className="font-serif font-bold text-xl text-primary leading-tight">التجمع المحلي</span>
+                <span className="text-sm text-muted-foreground font-medium">لشباب عين فربة</span>
+              </div>
+            </Link>
+
+            {/* Desktop nav */}
+            <nav className="hidden md:flex items-center gap-8">
+              {navLinks.map((link) => (
+                <Link
+                  key={link.href}
+                  href={link.href}
+                  className={`text-base font-semibold transition-colors hover:text-primary ${
+                    location === link.href ? "text-primary border-b-2 border-primary pb-1" : "text-muted-foreground"
+                  }`}
+                >
+                  {link.label}
+                </Link>
+              ))}
+            </nav>
+          </div>
         </div>
 
         {/* Mobile dropdown menu */}
