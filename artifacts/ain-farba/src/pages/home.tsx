@@ -31,20 +31,6 @@ export default function Home() {
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-12 font-medium leading-relaxed max-w-2xl mx-auto">
             منصة مخصصة لتوثيق التراث، والتعريف بالأعلام، ونشر الفكر والأدب الخاص بمنطقة عين فربة في موريتانيا.
           </p>
-          <div className="flex flex-wrap justify-center gap-4">
-            <Link
-              href="/articles"
-              className="bg-accent text-accent-foreground px-8 py-3 rounded-md font-bold text-lg hover:bg-accent/90 transition-colors shadow-lg"
-            >
-              تصفح المقالات
-            </Link>
-            <Link
-              href="/notables"
-              className="bg-transparent border-2 border-primary-foreground/30 text-primary-foreground px-8 py-3 rounded-md font-bold text-lg hover:bg-primary-foreground/10 transition-colors"
-            >
-              تعرف على الأعلام
-            </Link>
-          </div>
         </div>
       </section>
 
