@@ -193,21 +193,21 @@ function SectionHeader({
   href: string;
 }) {
   return (
-    <div className="flex items-end justify-between mb-8">
-      <div>
-        <div className="flex items-center gap-2 text-primary mb-1">
-          {icon}
+    <div className="mb-8">
+      <div className="flex items-center justify-between mb-1">
+        <Link
+          href={href}
+          className="flex items-center gap-1 text-sm font-semibold text-primary hover:text-accent transition-colors shrink-0"
+        >
+          عرض الكل
+          <ArrowLeft className="h-4 w-4" />
+        </Link>
+        <div className="flex items-center gap-2 text-primary">
           <h2 className="text-2xl md:text-3xl font-serif font-bold">{title}</h2>
+          {icon}
         </div>
-        <p className="text-muted-foreground">{subtitle}</p>
       </div>
-      <Link
-        href={href}
-        className="flex items-center gap-1 text-sm font-semibold text-primary hover:text-accent transition-colors shrink-0"
-      >
-        عرض الكل
-        <ArrowLeft className="h-4 w-4" />
-      </Link>
+      <p className="text-muted-foreground text-right">{subtitle}</p>
     </div>
   );
 }
