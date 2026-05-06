@@ -97,7 +97,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               <p className="text-primary-foreground/80">التجمع المحلي لشباب عين فربة</p>
             </div>
           </div>
-          <div className="flex flex-col md:text-left text-center md:items-end items-center gap-2">
+          <div className="flex flex-col items-center text-center gap-2">
             <p className="opacity-90">حفظ الذاكرة الثقافية لمنطقة عين فربة، موريتانيا</p>
             <p className="text-sm opacity-70">© {new Date().getFullYear()} جميع الحقوق محفوظة</p>
           </div>
