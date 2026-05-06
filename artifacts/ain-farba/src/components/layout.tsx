@@ -99,7 +99,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           </div>
           <div className="flex flex-col items-center text-center gap-2">
             <p className="opacity-90">حفظ الذاكرة الثقافية لمنطقة عين فربة، موريتانيا</p>
-            <p className="text-sm opacity-70">© {new Date().getFullYear()} جميع الحقوق محفوظة</p>
+            <p className="text-sm opacity-70">جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
           </div>
         </div>
       </footer>
