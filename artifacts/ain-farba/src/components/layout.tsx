@@ -112,7 +112,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 </svg>
               </a>
               <a
-                href="https://wa.me/"
+                href="https://wa.me/22242347878"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="واتساب"
