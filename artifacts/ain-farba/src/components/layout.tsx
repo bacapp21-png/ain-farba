@@ -101,7 +101,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             <p className="opacity-90">حفظ الذاكرة الثقافية لمنطقة عين فربة، موريتانيا</p>
             <div className="flex items-center gap-3">
               <a
-                href="https://www.facebook.com"
+                href="https://www.facebook.com/share/p/17S3EaFV4V/"
                 target="_blank"
                 rel="noopener noreferrer"
                 aria-label="فيسبوك"
