@@ -124,7 +124,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
               </a>
             </div>
             <p className="text-sm opacity-70">جميع الحقوق محفوظة © {new Date().getFullYear()}</p>
-            <Link href="/admin/login" className="text-xs opacity-30 hover:opacity-60 transition-opacity">
+            <Link href="/admin/login" className="text-xs opacity-0 select-none pointer-events-none absolute">
               لوحة الإدارة
             </Link>
           </div>
