@@ -1,4 +1,4 @@
-import logoUrl from "@assets/739de7c1-721e-4183-b50a-44381f45706f_1777679936172.jpeg";
+import logoUrl from "@assets/2d137bf4-fcec-4423-89e3-894b9e8e6144_1778318301241.jpeg";
 
 export default function About() {
   return (
