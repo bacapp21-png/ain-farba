@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { categoryTranslations, formatDate } from "@/lib/translations";
+import { ImageUploader } from "@/components/image-uploader";
 
 type Category = "heritage" | "history" | "literature" | "thought" | "identity";
 
@@ -256,16 +257,15 @@ export default function AdminArticles() {
               <Label htmlFor="content">المحتوى الكامل *</Label>
               <Textarea id="content" value={form.content} onChange={(e) => setForm({ ...form, content: e.target.value })} placeholder="نص المقالة كاملاً..." rows={8} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <Label htmlFor="publishedAt">تاريخ النشر</Label>
-                <Input id="publishedAt" type="date" value={form.publishedAt} onChange={(e) => setForm({ ...form, publishedAt: e.target.value })} />
-              </div>
-              <div className="space-y-1">
-                <Label htmlFor="imageUrl">رابط الصورة (اختياري)</Label>
-                <Input id="imageUrl" value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://..." />
-              </div>
+            <div className="space-y-1">
+              <Label htmlFor="publishedAt">تاريخ النشر</Label>
+              <Input id="publishedAt" type="date" value={form.publishedAt} onChange={(e) => setForm({ ...form, publishedAt: e.target.value })} />
             </div>
+            <ImageUploader
+              value={form.imageUrl}
+              onChange={(url) => setForm({ ...form, imageUrl: url })}
+              label="صورة المقالة (اختياري)"
+            />
           </div>
           <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setShowForm(false)}>إلغاء</Button>

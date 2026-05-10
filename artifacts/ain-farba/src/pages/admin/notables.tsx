@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Plus, Pencil, Trash2 } from "lucide-react";
 import { specialtyTranslations } from "@/lib/translations";
+import { ImageUploader } from "@/components/image-uploader";
 
 type Specialty = "scholar" | "jurist" | "poet" | "writer" | "thinker";
 
@@ -210,16 +211,15 @@ export default function AdminNotables() {
               <Label>السيرة الذاتية *</Label>
               <Textarea value={form.bio} onChange={(e) => setForm({ ...form, bio: e.target.value })} placeholder="نبذة عن حياة العَلَم وإسهاماته..." rows={5} />
             </div>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="space-y-1">
-                <Label>الحقبة الزمنية (اختياري)</Label>
-                <Input value={form.era} onChange={(e) => setForm({ ...form, era: e.target.value })} placeholder="مثال: القرن العشرون" />
-              </div>
-              <div className="space-y-1">
-                <Label>رابط الصورة (اختياري)</Label>
-                <Input value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://..." />
-              </div>
+            <div className="space-y-1">
+              <Label>الحقبة الزمنية (اختياري)</Label>
+              <Input value={form.era} onChange={(e) => setForm({ ...form, era: e.target.value })} placeholder="مثال: القرن العشرون" />
             </div>
+            <ImageUploader
+              value={form.imageUrl}
+              onChange={(url) => setForm({ ...form, imageUrl: url })}
+              label="صورة العَلَم (اختياري)"
+            />
           </div>
           <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setShowForm(false)}>إلغاء</Button>

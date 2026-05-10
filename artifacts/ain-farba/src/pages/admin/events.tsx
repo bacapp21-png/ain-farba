@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Plus, Pencil, Trash2, MapPin } from "lucide-react";
 import { eventStatusTranslations, formatDate } from "@/lib/translations";
+import { ImageUploader } from "@/components/image-uploader";
 
 type EventStatus = "upcoming" | "past";
 
@@ -218,10 +219,11 @@ export default function AdminEvents() {
               <Label>المكان *</Label>
               <Input value={form.location} onChange={(e) => setForm({ ...form, location: e.target.value })} placeholder="مكان انعقاد الفعالية" />
             </div>
-            <div className="space-y-1">
-              <Label>رابط الصورة (اختياري)</Label>
-              <Input value={form.imageUrl} onChange={(e) => setForm({ ...form, imageUrl: e.target.value })} placeholder="https://..." />
-            </div>
+            <ImageUploader
+              value={form.imageUrl}
+              onChange={(url) => setForm({ ...form, imageUrl: url })}
+              label="صورة الفعالية (اختياري)"
+            />
           </div>
           <DialogFooter className="gap-2">
             <Button variant="outline" onClick={() => setShowForm(false)}>إلغاء</Button>
