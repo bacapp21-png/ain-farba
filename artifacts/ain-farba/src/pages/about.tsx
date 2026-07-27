@@ -5,10 +5,10 @@ export default function About() {
     <div className="container mx-auto px-4 py-16 max-w-4xl">
       <div className="text-center mb-16">
         <div className="inline-block mb-6 p-2 rounded-full border-4 border-primary/10">
-          <img src={logoUrl} alt="شعار التجمع المحلي لشباب عين فربة" className="w-32 h-32 rounded-full object-cover" />
+          <img src={logoUrl} alt="شعار ذاكرة عين فربة" className="w-32 h-32 rounded-full object-cover" />
         </div>
         <h1 className="text-4xl md:text-6xl font-serif font-bold text-primary mb-4">
-          التجمع المحلي لشباب عين فربة
+          ذاكرة عين فربة
         </h1>
         <p className="text-2xl font-serif text-accent font-bold mb-8">
           وحدة • ثقافة • بناء
@@ -20,7 +20,7 @@ export default function About() {
           <h2 className="text-3xl font-serif font-bold text-primary mb-6 border-b pb-4">من نحن؟</h2>
           <div className="prose prose-lg prose-stone max-w-none leading-relaxed">
             <p>
-              التجمع المحلي لشباب عين فربة هو مبادرة شبابية مستقلة تهدف إلى الحفاظ على التراث الثقافي والتاريخي لمنطقة عين فربة في موريتانيا، وإبراز دورها التاريخي والعلمي، وتوحيد جهود الشباب من أجل بناء مستقبل أفضل للمنطقة.
+              ذاكرة عين فربة هي مبادرة شبابية مستقلة تهدف إلى الحفاظ على التراث الثقافي والتاريخي لمنطقة عين فربة في موريتانيا، وإبراز دورها التاريخي والعلمي، وتوحيد جهود الشباب من أجل بناء مستقبل أفضل للمنطقة.
             </p>
             <p>
               نؤمن بأن الذاكرة الثقافية هي الأساس الذي تبنى عليه الأجيال القادمة، ولذلك نسعى لتوثيق ورقمنة المخطوطات، وتدوين التاريخ الشفوي، والتعريف بأعلام المنطقة وعلمائها، ونشر إنتاجهم الفكري والأدبي.

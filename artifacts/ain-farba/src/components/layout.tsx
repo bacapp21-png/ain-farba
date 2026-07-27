@@ -24,7 +24,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
           <div className="flex items-center gap-8">
             <Link href="/" className="flex items-center gap-3 group" onClick={() => setMenuOpen(false)}>
               <div className="relative overflow-hidden rounded-full h-12 w-12 border-2 border-primary/20 group-hover:border-primary transition-colors">
-                <img src={logoUrl} alt="شعار التجمع المحلي لشباب عين فربة" className="object-cover w-full h-full" />
+                <img src={logoUrl} alt="شعار ذاكرة عين فربة" className="object-cover w-full h-full" />
               </div>
               <div className="flex flex-col">
                 <span className="font-serif font-bold text-xl text-primary leading-tight">التجمع المحلي</span>
@@ -94,7 +94,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
             </div>
             <div>
               <h3 className="font-serif font-bold text-2xl mb-1">وحدة • ثقافة • بناء</h3>
-              <p className="text-primary-foreground/80">التجمع المحلي لشباب عين فربة</p>
+              <p className="text-primary-foreground/80">ذاكرة عين فربة</p>
             </div>
           </div>
           <div className="flex flex-col items-center text-center gap-3">

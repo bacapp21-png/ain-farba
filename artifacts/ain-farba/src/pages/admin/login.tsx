@@ -49,7 +49,7 @@ export default function AdminLogin() {
             </div>
           </div>
           <CardTitle className="font-serif text-2xl text-primary">لوحة الإدارة</CardTitle>
-          <CardDescription className="text-base">التجمع المحلي لشباب عين فربة</CardDescription>
+          <CardDescription className="text-base">ذاكرة عين فربة</CardDescription>
         </CardHeader>
         <CardContent>
           <form onSubmit={handleSubmit} className="space-y-4 mt-4">
