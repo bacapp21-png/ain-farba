@@ -27,8 +27,7 @@ export default function Layout({ children }: { children: React.ReactNode }) {
                 <img src={logoUrl} alt="شعار ذاكرة عين فربة" className="object-cover w-full h-full" />
               </div>
               <div className="flex flex-col">
-                <span className="font-serif font-bold text-xl text-primary leading-tight">التجمع المحلي</span>
-                <span className="text-sm text-muted-foreground font-medium">لشباب عين فربة</span>
+                <span className="font-serif font-bold text-xl text-primary leading-tight">ذاكرة عين فربة</span>
               </div>
             </Link>
 
