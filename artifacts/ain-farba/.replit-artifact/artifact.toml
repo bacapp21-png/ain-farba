@@ -19,7 +19,7 @@ run = "pnpm --filter @workspace/ain-farba run dev"
 
 [services.production]
 build = [ "pnpm", "--filter", "@workspace/ain-farba", "run", "build" ]
-publicDir = "artifacts/ain-farba/dist/public"
+publicDir = "artifacts/ain-farba/dist"
 serve = "static"
 
 [[services.production.rewrites]]
