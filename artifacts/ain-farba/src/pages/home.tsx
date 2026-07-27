@@ -29,7 +29,7 @@ export default function Home() {
             <span className="text-accent">الثقافية والتاريخية</span>
           </h1>
           <p className="text-xl md:text-2xl text-primary-foreground/90 mb-12 font-medium leading-relaxed max-w-2xl mx-auto">
-            منصة مخصصة لتوثيق التراث، والتعريف بالأعلام، ونشر الفكر والأدب الخاص بمنطقة عين فربة في موريتانيا.
+            منصة متخصصة في توثيق التراث الثقافي والتاريخي، والتعريف بالمقومات السياحية، وإبراز المعالم الطبيعية والحضارية، ونشر الفكر والأدب، والتعريف بالأعلام والشخصيات البارزة بمنطقة عين فربة في موريتانيا.
           </p>
         </div>
       </section>
