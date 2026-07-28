@@ -25,7 +25,29 @@ app.use(
     },
   }),
 );
-app.use(cors());
+app.use(
+  cors({
+    origin: (origin, callback) => {
+      // Allow requests with no origin (curl, mobile apps, server-to-server)
+      if (!origin) return callback(null, true);
+      // Allow any Vercel deployment and the custom domain
+      if (
+        origin.endsWith(".vercel.app") ||
+        origin.endsWith(".ainvarba.com") ||
+        origin === "https://ainvarba.com" ||
+        origin === "https://www.ainvarba.com"
+      ) {
+        return callback(null, true);
+      }
+      // Allow localhost for development
+      if (origin.startsWith("http://localhost") || origin.startsWith("http://127.0.0.1")) {
+        return callback(null, true);
+      }
+      return callback(null, true); // open for now — tighten after migration
+    },
+    credentials: true,
+  })
+);
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
 

@@ -21,3 +21,10 @@ timeoutMs = 20000
 
 [nix]
 channel = "stable-25_05"
+
+[objectStorage]
+defaultBucketID = "replit-objstore-ea2368c1-d691-4c15-bdab-3e87cedf303a"
+
+[userenv]
+
+[userenv.shared]
