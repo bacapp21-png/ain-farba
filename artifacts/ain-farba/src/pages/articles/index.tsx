@@ -5,6 +5,7 @@ import { ListArticlesCategory } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { categoryTranslations, formatDate } from "@/lib/translations";
+import { getImageUrl } from "@/lib/storage";
 import { Button } from "@/components/ui/button";
 
 export default function Articles() {
@@ -57,7 +58,7 @@ export default function Articles() {
               <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 hover:border-primary/40 group bg-card overflow-hidden">
                 {article.imageUrl && (
                   <div className="aspect-video w-full overflow-hidden">
-                    <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={getImageUrl(article.imageUrl)} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   </div>
                 )}
                 <CardContent className="p-6 flex flex-col h-full">

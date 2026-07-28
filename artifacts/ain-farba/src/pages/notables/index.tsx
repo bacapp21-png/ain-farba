@@ -5,6 +5,7 @@ import { ListNotablesSpecialty } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { specialtyTranslations } from "@/lib/translations";
+import { getImageUrl } from "@/lib/storage";
 import { Button } from "@/components/ui/button";
 
 export default function Notables() {
@@ -57,7 +58,7 @@ export default function Notables() {
               <Card className="h-full hover:shadow-xl transition-all hover:-translate-y-1 group bg-card border-primary/10 overflow-hidden">
                 <div className="aspect-[4/5] bg-muted relative overflow-hidden">
                   {notable.imageUrl ? (
-                    <img src={notable.imageUrl} alt={notable.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                    <img src={getImageUrl(notable.imageUrl)} alt={notable.name} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                   ) : (
                     <div className="w-full h-full flex items-center justify-center bg-primary/5 text-primary/20">
                       <span className="text-6xl font-serif font-bold">{notable.name.charAt(0)}</span>

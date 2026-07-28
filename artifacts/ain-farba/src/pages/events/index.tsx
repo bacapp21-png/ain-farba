@@ -5,6 +5,7 @@ import { ListEventsStatus } from "@workspace/api-client-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { eventStatusTranslations, formatDate } from "@/lib/translations";
+import { getImageUrl } from "@/lib/storage";
 import { Button } from "@/components/ui/button";
 import { Calendar, MapPin } from "lucide-react";
 
@@ -52,7 +53,7 @@ export default function Events() {
                 <CardContent className="p-0 flex flex-col sm:flex-row h-full bg-card">
                   {event.imageUrl && (
                     <div className="w-full sm:w-1/3 aspect-video sm:aspect-auto">
-                      <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
+                      <img src={getImageUrl(event.imageUrl)} alt={event.title} className="w-full h-full object-cover" />
                     </div>
                   )}
                   <div className="p-6 flex flex-col flex-1">

@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useGetEvent, getGetEventQueryKey } from "@workspace/api-client-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { eventStatusTranslations, formatDate } from "@/lib/translations";
+import { getImageUrl } from "@/lib/storage";
 import { Calendar, MapPin, Info } from "lucide-react";
 
 export default function EventDetail() {
@@ -37,7 +38,7 @@ export default function EventDetail() {
     <div className="container mx-auto px-4 py-12 max-w-4xl">
       {event.imageUrl && (
         <div className="mb-8 rounded-2xl overflow-hidden aspect-[21/9] border shadow-md">
-          <img src={event.imageUrl} alt={event.title} className="w-full h-full object-cover" />
+          <img src={getImageUrl(event.imageUrl)} alt={event.title} className="w-full h-full object-cover" />
         </div>
       )}
 

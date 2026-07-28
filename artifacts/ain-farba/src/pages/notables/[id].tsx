@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useGetNotable, getGetNotableQueryKey } from "@workspace/api-client-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { specialtyTranslations } from "@/lib/translations";
+import { getImageUrl } from "@/lib/storage";
 import { BookOpen } from "lucide-react";
 
 export default function NotableDetail() {
@@ -44,7 +45,7 @@ export default function NotableDetail() {
         
         <div className="w-full md:w-2/5 lg:w-1/3 bg-muted relative min-h-[400px]">
           {notable.imageUrl ? (
-            <img src={notable.imageUrl} alt={notable.name} className="absolute inset-0 w-full h-full object-cover" />
+            <img src={getImageUrl(notable.imageUrl)} alt={notable.name} className="absolute inset-0 w-full h-full object-cover" />
           ) : (
             <div className="absolute inset-0 flex items-center justify-center bg-primary/10 text-primary/30">
                <span className="text-9xl font-serif font-bold">{notable.name.charAt(0)}</span>

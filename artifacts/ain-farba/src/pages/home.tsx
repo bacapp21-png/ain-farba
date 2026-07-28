@@ -1,6 +1,7 @@
 import { useGetRecentActivity, type RecentActivity } from "@workspace/api-client-react";
 import { Link } from "wouter";
 import { categoryTranslations, specialtyTranslations, eventStatusTranslations, formatDate } from "@/lib/translations";
+import { getImageUrl } from "@/lib/storage";
 import { Card, CardContent } from "@/components/ui/card";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Badge } from "@/components/ui/badge";
@@ -55,7 +56,7 @@ export default function Home() {
                   <Card className="h-full hover:shadow-md transition-all hover:border-primary/30 group cursor-pointer overflow-hidden">
                     {article.imageUrl && (
                       <div className="aspect-video w-full overflow-hidden">
-                        <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                        <img src={getImageUrl(article.imageUrl)} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
                       </div>
                     )}
                     <CardContent className="p-6 flex flex-col h-full">

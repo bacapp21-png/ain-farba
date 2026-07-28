@@ -2,6 +2,7 @@ import { useParams } from "wouter";
 import { useGetArticle, getGetArticleQueryKey } from "@workspace/api-client-react";
 import { Skeleton } from "@/components/ui/skeleton";
 import { categoryTranslations, formatDate } from "@/lib/translations";
+import { getImageUrl } from "@/lib/storage";
 
 export default function ArticleDetail() {
   const params = useParams();
@@ -54,7 +55,7 @@ export default function ArticleDetail() {
 
       {article.imageUrl && (
         <div className="mb-12 rounded-xl overflow-hidden aspect-video border shadow-sm">
-          <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover" />
+          <img src={getImageUrl(article.imageUrl)} alt={article.title} className="w-full h-full object-cover" />
         </div>
       )}
 
