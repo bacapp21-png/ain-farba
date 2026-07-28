@@ -54,7 +54,12 @@ export default function Articles() {
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
           {articles.map((article) => (
             <Link key={article.id} href={`/articles/${article.id}`}>
-              <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 hover:border-primary/40 group bg-card">
+              <Card className="h-full hover:shadow-lg transition-all hover:-translate-y-1 hover:border-primary/40 group bg-card overflow-hidden">
+                {article.imageUrl && (
+                  <div className="aspect-video w-full overflow-hidden">
+                    <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                  </div>
+                )}
                 <CardContent className="p-6 flex flex-col h-full">
                   <div className="flex justify-between items-start mb-4">
                     <span className="text-xs font-bold text-accent bg-accent/10 px-3 py-1 rounded-full">

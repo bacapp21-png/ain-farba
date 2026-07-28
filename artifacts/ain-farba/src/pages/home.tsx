@@ -52,7 +52,12 @@ export default function Home() {
             <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
               {activity!.recentArticles.map((article) => (
                 <Link key={article.id} href={`/articles/${article.id}`}>
-                  <Card className="h-full hover:shadow-md transition-all hover:border-primary/30 group cursor-pointer">
+                  <Card className="h-full hover:shadow-md transition-all hover:border-primary/30 group cursor-pointer overflow-hidden">
+                    {article.imageUrl && (
+                      <div className="aspect-video w-full overflow-hidden">
+                        <img src={article.imageUrl} alt={article.title} className="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" />
+                      </div>
+                    )}
                     <CardContent className="p-6 flex flex-col h-full">
                       <Badge variant="outline" className="self-start mb-3 text-accent border-accent/30 font-semibold">
                         {categoryTranslations[article.category] ?? article.category}
