@@ -3,31 +3,31 @@ import { ImageIcon, X, Upload, Loader2 } from "lucide-react";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Button } from "@/components/ui/button";
-import { getImageUrl } from "@/lib/storage";
+
+const CLOUD_NAME = import.meta.env.VITE_CLOUDINARY_CLOUD_NAME as string | undefined;
+const UPLOAD_PRESET = import.meta.env.VITE_CLOUDINARY_UPLOAD_PRESET as string | undefined;
+
+async function uploadToCloudinary(file: File): Promise<string> {
+  if (!CLOUD_NAME || !UPLOAD_PRESET) {
+    throw new Error("Cloudinary غير مُهيَّأ — يرجى إضافة VITE_CLOUDINARY_CLOUD_NAME و VITE_CLOUDINARY_UPLOAD_PRESET");
+  }
+  const form = new FormData();
+  form.append("file", file);
+  form.append("upload_preset", UPLOAD_PRESET);
+
+  const res = await fetch(
+    `https://api.cloudinary.com/v1_1/${CLOUD_NAME}/image/upload`,
+    { method: "POST", body: form }
+  );
+  if (!res.ok) throw new Error("فشل رفع الصورة على Cloudinary");
+  const data = await res.json();
+  return data.secure_url as string;
+}
 
 interface ImageUploaderProps {
   value: string;
   onChange: (url: string) => void;
   label?: string;
-}
-
-async function requestUploadUrl(file: File): Promise<{ uploadURL: string; objectPath: string }> {
-  const res = await fetch("/api/storage/uploads/request-url", {
-    method: "POST",
-    headers: { "Content-Type": "application/json" },
-    body: JSON.stringify({ name: file.name, size: file.size, contentType: file.type }),
-  });
-  if (!res.ok) throw new Error("فشل في طلب رابط الرفع");
-  return res.json();
-}
-
-async function uploadToSignedUrl(uploadURL: string, file: File): Promise<void> {
-  const res = await fetch(uploadURL, {
-    method: "PUT",
-    headers: { "Content-Type": file.type },
-    body: file,
-  });
-  if (!res.ok) throw new Error("فشل في رفع الصورة");
 }
 
 export function ImageUploader({ value, onChange, label = "الصورة (اختياري)" }: ImageUploaderProps) {
@@ -38,16 +38,12 @@ export function ImageUploader({ value, onChange, label = "الصورة (اختي
   const handleFileChange = async (e: React.ChangeEvent<HTMLInputElement>) => {
     const file = e.target.files?.[0];
     if (!file) return;
-
-    // Reset input so same file can be re-selected
     e.target.value = "";
-
     setUploading(true);
     setUploadError(null);
     try {
-      const { uploadURL, objectPath } = await requestUploadUrl(file);
-      await uploadToSignedUrl(uploadURL, file);
-      onChange(objectPath);
+      const url = await uploadToCloudinary(file);
+      onChange(url);
     } catch (err) {
       setUploadError(err instanceof Error ? err.message : "حدث خطأ أثناء الرفع");
     } finally {
@@ -55,13 +51,10 @@ export function ImageUploader({ value, onChange, label = "الصورة (اختي
     }
   };
 
-  const displayUrl = getImageUrl(value);
-
   return (
     <div className="space-y-2">
       <Label>{label}</Label>
 
-      {/* Hidden file input */}
       <input
         ref={fileInputRef}
         type="file"
@@ -74,12 +67,10 @@ export function ImageUploader({ value, onChange, label = "الصورة (اختي
       {value && (
         <div className="relative rounded-lg overflow-hidden border border-border bg-muted">
           <img
-            src={displayUrl}
+            src={value}
             alt="معاينة الصورة"
             className="w-full h-40 object-cover"
-            onError={(e) => {
-              (e.target as HTMLImageElement).style.display = "none";
-            }}
+            onError={(e) => { (e.target as HTMLImageElement).style.display = "none"; }}
           />
           <button
             type="button"
@@ -91,7 +82,7 @@ export function ImageUploader({ value, onChange, label = "الصورة (اختي
         </div>
       )}
 
-      {/* Upload area (shown when no value) */}
+      {/* Upload zone */}
       {!value && (
         <button
           type="button"
@@ -113,7 +104,6 @@ export function ImageUploader({ value, onChange, label = "الصورة (اختي
         </button>
       )}
 
-      {/* Upload button when value exists (replace) */}
       {value && !uploading && (
         <Button
           type="button"
@@ -127,15 +117,12 @@ export function ImageUploader({ value, onChange, label = "الصورة (اختي
         </Button>
       )}
 
-      {uploadError && (
-        <p className="text-xs text-destructive">{uploadError}</p>
-      )}
+      {uploadError && <p className="text-xs text-destructive">{uploadError}</p>}
 
-      {/* URL fallback */}
       <div className="space-y-1">
         <p className="text-xs text-muted-foreground">أو أدخل رابطاً مباشراً:</p>
         <Input
-          value={value.startsWith("/objects/") ? "" : value}
+          value={value.startsWith("https://res.cloudinary.com") ? "" : value}
           onChange={(e) => onChange(e.target.value)}
           placeholder="https://..."
           className="text-sm"
